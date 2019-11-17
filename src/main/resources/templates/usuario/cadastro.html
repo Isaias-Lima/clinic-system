@@ -1,0 +1,121 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+  <div class="content-wrapper">
+
+    <section class="content-header">
+
+      <h1>
+        Usuários
+        <small>Cadastre aqui seus usúarios</small>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li><a href="/"> Home</a></li>
+        <li class="active">Usuários</li>
+      </ol>
+
+    </section>
+
+    <section class="content">
+
+      <div th:replace="fragments/alert"></div>
+
+      <div class="box box-info">
+
+        <div class="box-header with-border">
+          <h3 class="box-title">Informe os dados solicitados</h3>
+        </div>
+
+        <form th:action="${id == null} ? @{cadastrar} : @{../editar}" th:object="${usuario}" method="POST">
+
+          <input id="id" type="hidden" th:field="*{id}">
+
+          <div class="box-body">
+
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" class="form-control" placeholder="Nome" th:field="*{nome}" autocomplete="off"
+                       autofocus=true onfocus="this.selectionStart = this.selectionEnd = this.value.length;" required>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="dataCadastro">Data cadastro</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input id="dataCadastro" type="text" class="form-control pull-right datepicker" th:field="*{dataCadastro}"
+                         autocomplete="off" placeholder="dd/mm/yyyy">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="desativado">Desativado</label>
+                <select id="desativado" class="form-control select2" style="width: 100%;" th:field="*{desativado}">
+                  <option selected="selected" value=true>Sim</option>
+                  <option value=false>Não</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}"
+                       autocomplete="off" required>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" class="form-control" placeholder="Senha" th:field="*{senha}"
+                       autocomplete="off" required>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="usuario-grupo">Grupo</label>
+                <select id="usuario-grupo" class="form-control select2" style="width: 100%;" , th:field="*{usuarioGrupo}" required>
+                  <option th:each="g : ${grupos}" th:value="${g.id}" th:text="${g.nome}">Admin</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="box-footer">
+
+            <a class="btn btn-default" href="javascript:history.back()"><i class="fa fa-undo"></i> Cancelar</a>
+
+            <div class="pull-right">
+              
+              <button th:if="${id != null}" th:id="${'/btn_excluir/' + id}" type="button" class="btn btn-danger" data-toggle="modal"
+                      data-target="#myModal">
+                <i class="fa fa-trash"></i> Excluir
+              </button>
+
+              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
+
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div th:replace="fragments/modal :: modal"></div>
+
+</section>
+
+</html>

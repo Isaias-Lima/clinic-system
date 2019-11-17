@@ -1,0 +1,79 @@
+<html layout:decorate="~{layout}">
+  
+  <section layout:fragment="corpo">
+
+    <div class="content-wrapper">
+
+      <section class="content-header">
+        <h1>
+          Grupos de Usuários
+          <small>Cadastre aqui seus grupos de usuários</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="/"> Home</a></li>
+          <li class="active">Grupos</li>
+        </ol>
+      </section>
+
+      <section class="content">
+
+        <div th:replace="fragments/alert"></div>
+
+        <div class="box box-info">
+
+          <div class="box-header with-border">
+            <h3 class="box-title">Informe o grupo</h3>
+          </div>
+
+          <form th:action="${id == null} ? @{cadastrar} : @{../editar}" th:object="${usuarioGrupo}" method="POST">
+            <input id="id" type="hidden" th:field="*{id}">
+
+            <div class="box-body">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="nome">Nome</label>
+                  <input id="nome" type="text" class="form-control" placeholder="Nome" th:field="*{nome}" autocomplete="off"
+                    autofocus=true onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="ativo">Ativo</label>
+                  <select id="ativo" class="form-control select2" style="width: 100%;" th:field="*{ativo}">
+                    <option selected="selected" value=true>Sim</option>
+                    <option value=false>Não</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="box-footer">
+
+              <a class="btn btn-default" href="javascript:history.back()"><i class="fa fa-undo"></i> Cancelar</a>
+
+              <div class="pull-right">
+
+
+                <button th:if="${id != null}" th:id="${'/btn_excluir/' + id}" type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#myModal">
+                  <i class="fa fa-trash"></i> Excluir
+                </button>
+
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
+
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <div th:replace="fragments/modal :: modal"></div>
+
+  </section>
+</html>

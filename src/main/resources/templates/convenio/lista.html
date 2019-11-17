@@ -1,0 +1,100 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+    <div class="content-wrapper">
+
+
+        <section class="content-header">
+            <h1>
+                Convenio
+                <small>Lista de Convenios</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"> Home</a></li>
+                <li><a href="cadastro"> Convenios</a></li>
+                <li class="active">Lista</li>
+            </ol>
+        </section>
+
+        <section class="content">
+
+            <div th:replace="fragments/alert"></div>
+
+            <div class="box box-info">
+
+                <div class="box-header">
+
+                    <h3 class="box-title">Lista de Convenios</h3>
+
+                    <div class="pull-right">
+
+                        <a class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapsePesquisa" aria-controls="collapsePesquisa">
+                            <span><i class="fa fa-search"></i> Pesquisa</span>
+                        </a>
+
+                        <a class="btn btn-primary"  type="button" th:href="@{/admin/convenio/cadastro}">
+                            <span><i class="fa fa-plus"></i> Novo Convenio</span>
+                        </a>
+
+                    </div>
+
+                    </br></br>
+
+                    <div class="pull-left">
+
+                        <div class="collapse" id="collapsePesquisa">
+
+                            <div class="input-group input-group-sm">
+
+                                <form method="GET" th:action="@{/admin/convenio/buscar/convenio}">
+                                    <input type="text" th:name="convenio" class="form-control" style="width: 250px;" placeholder="Pesquise pelo Nome do Convênio" required>
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="box-body table-responsive no-padding">
+
+                    <table id="lista" class="table table-bordered table-striped">
+
+                        <thead>
+                        <tr>
+                            <th width="15px"></th>
+                            <th width="70px">Registro</th>
+                            <th>Nome Convenio</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="c : ${convenio}">
+                            <td>
+                                <a th:href="@{/admin/convenio/editar/{id} (id = ${c.id})}" class="pull-right" role="button"><i class="fa fa-edit">
+                                </i></a>
+                            </td>
+                            <td th:text="${c.id}">1</td>
+                            <td th:text="${c.nomeConvenio}">...</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="box-footer">
+                    <div th:replace="fragments/pages"></div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+</html>

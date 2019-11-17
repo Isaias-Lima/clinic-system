@@ -1,0 +1,106 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+	<div class="content-wrapper">
+
+		<section class="content-header">
+			<h1>
+				Anamneses <small>Adicione uma Nova Anamnese</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="/"> Home </a></li>
+				<li class="active">Anamnese</li>
+			</ol>
+		</section>
+
+		<section class="content">
+
+			<div th:replace="fragments/alert"></div>
+
+			<div class="box box-info">
+
+				<div class="box-header with-border">
+					<h3 class="box-title">Informe os Dados para Cadastro da
+						Anamnese</h3>
+				</div>
+
+				<form th:action="${id == null} ? @{salvar} : @{../editar}"
+					th:object="${anamnese}" method="POST">
+					<input id="id" type="hidden" th:field="*{id}">
+
+					<div class="box-body">
+
+						<div class="col-md-1">
+							<div class="form-group">
+								<label for="id">Registro</label>
+
+							</div>
+						</div>
+
+</br> </br>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="paciente">Paciente</label> <input id="paciente"
+									type="text" class="form-control" placeholder=""
+									th:field="*{paciente}" autocomplete="off" autofocus=true>
+							</div>
+						</div>
+						</br> </br> </br> </br>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="cid">CID</label> <input id="cid" type="text"
+									class="form-control" placeholder="" th:field="*{cid}"
+									autocomplete="off" autofocus=true>
+							</div>
+						</div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="descricao">Descricao</label> <input id="cid" type="text"
+									class="form-control" placeholder="" th:field="*{cid}"
+									autocomplete="off" autofocus=true>
+							</div>
+						</div>
+						
+						</br> </br> </br> </br>
+						<!-- textarea -->
+						<div class="form-group">
+							<label>Principais Queixas</label>
+							<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+						</div>
+
+
+					</div>
+
+					<div class="box-footer">
+
+						<a class="btn btn-default" href="javascript:history.back()"><i
+							class="fa fa-undo"></i> Cancelar</a>
+
+						<div class="pull-right">
+
+
+							<button th:if="${id != null}" th:id="${'/btn_excluir/' + id}"
+								type="button" class="btn btn-danger" data-toggle="modal"
+								data-target="#myModal">
+								<i class="fa fa-trash"></i> Excluir
+							</button>
+
+							<button type="submit" class="btn btn-primary">
+								<i class="fa fa-save"></i> Salvar
+							</button>
+
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+		</section>
+	</div>
+
+	<div th:replace="fragments/modal :: modal"></div>
+
+</section>
+</html>

@@ -1,0 +1,138 @@
+<html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+
+<section layout:fragment="corpo">
+
+  <div class="content-wrapper">
+
+    <section class="content-header">
+      <h1>
+        Usuários <small>Lista com usuários cadastrados</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a th:href="@{/admin}"> Home</a></li>
+        <li><a th:href="@{/admin/usuario/cadastro}"> Usuários</a></li>
+        <li class="active">Lista</li>
+      </ol>
+    </section>
+
+    <section class="content">
+
+      <div th:replace="fragments/alert"></div>
+
+      <div class="box box-info">
+        <div class="box-header">
+          <h3 class="box-title">Lista de Usuários</h3>
+
+          <div class="pull-right">
+
+            <a	class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapsePesquisa" aria-controls="collapsePesquisa">
+              <span><i class="fa fa-search"></i> Pesquisa</span>
+            </a>
+
+            <a class="btn btn-primary" type="button" th:href="@{/admin/usuario/cadastro}">
+              <span><i class="fa fa-plus"></i> Novo Usuário</span>
+            </a>
+
+          </div>
+
+          </br></br>
+
+          <div class="pull-left">
+
+            <div class="collapse" id="collapsePesquisa">
+
+              <div class="input-group input-group-sm">
+
+                <form method="GET" th:action="@{/admin/usuario/buscar/registro}">
+                  <input type="text" th:name="registro" class="form-control" style="width: 250px;" placeholder="Pesquise pelo Registro" required>
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </form>
+
+                <p></p>
+
+                <form method="GET" th:action="@{/admin/usuario/buscar/nome}">
+                  <input type="text" th:name="nome" class="form-control" style="width: 250px;" placeholder="Pesquise pelo Nome" required>
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </form>
+
+                <p></p>
+
+                <form method="GET" th:action="@{/admin/usuario/buscar/email}">
+                  <input type="text" th:name="email" class="form-control" style="width: 250px;" placeholder="Pesquise pelo E-mail" required>
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </form>
+
+                <p></p>
+
+                <form method="GET" th:action="@{/admin/usuario/buscar/grupo}">
+                  <select  type="search" class="form-control select2" style="width: 250px;" th:name="idGrupo"  placeholder="Pesquise pelo Grupo" required>
+                    <option th:value=null disabled selected>Pesquise pelo Grupo</option>
+                    <option th:each="g : ${grupos}" th:value="${g.id}" th:text="${g.nome}">Admin</option>
+                  </select>
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="box-body table-responsive no-padding">
+
+          <table id="lista" class="table table-bordered table-striped">
+
+            <thead>
+            <tr>
+              <th width="25px"></th>
+              <th width="70px">Registro</th>
+              <th>Nome</th>
+              <th>Data Cadastro</th>
+              <th>E-mail</th>
+              <th>Grupo</th>
+              <th width="30px">Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="u : ${usuario}">
+              <td><a th:href="@{/admin/usuario/editar/{id} (id = ${u.id})}"
+                     class="pull-right" role="button"><i class="fa fa-edit">
+              </i></a></td>
+              <td th:text="${u.id}"></td>
+              <td th:text="${u.nome}"></td>
+              <td th:text="${#dates.format(u.dataCadastro, 'dd/MM/yyyy')}"></td>
+              <td th:text="${u.email}"></td>
+              <td th:text="${u.usuarioGrupo.nome}"></td>
+              <td><span
+                      th:class="${u.desativado} ? 'label label-warning' : 'label label-success'"
+                      th:text="${u.desativado} ? 'Desativado' : 'Ativado'"></span></td>
+            </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="box-footer">
+          <div th:replace="fragments/pages"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
+</html>

@@ -1,0 +1,103 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+    <div class="content-wrapper">
+
+
+        <section class="content-header">
+            <h1>
+                Pacientes
+                <small>Lista de Pacientes</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"> Home</a></li>
+                <li><a href="paciente"> Pacientes</a></li>
+                <li class="active">Lista</li>
+            </ol>
+        </section>
+
+        <section class="content">
+
+            <div th:replace="fragments/alert"></div>
+
+            <div class="box box-info">
+
+                <div class="box-header">
+
+                    <h3 class="box-title">Lista de Pacientes</h3>
+
+                    <div class="pull-right">
+
+                        <a class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapsePesquisa" aria-controls="collapsePesquisa">
+                            <span><i class="fa fa-search"></i> Pesquisa</span>
+                        </a>
+
+                        <a class="btn btn-primary"  type="button" th:href="@{/admin/paciente/cadastro}">
+                            <span><i class="fa fa-plus"></i> Novo Paciente</span>
+                        </a>
+
+                    </div>
+
+                    </br></br>
+
+                    <div class="pull-left">
+
+                        <div class="collapse" id="collapsePesquisa">
+
+                            <div class="input-group input-group-sm">
+
+                                <form method="GET" th:action="@{/admin/paciente/buscar/registro}">
+                                    <input type="text" th:name="nome" class="form-control" style="width: 250px;" placeholder="Pesquise pelo Nome" required>
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="box-body table-responsive no-padding">
+
+                    <table id="lista" class="table table-bordered table-striped">
+
+                        <thead>
+                        <tr>
+                            <th width="15px"></th>
+                            <th width="70px">Registro</th>
+                            <th>Nome</th>
+                            <th width="170px">Contato</th>
+                            <th width="200px">Agendado</th>
+                            <th>Medico</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="p : ${paciente}">
+                            <td>
+                                <a th:href="@{/admin/paciente/editar/{id} (id = ${p.id})}" class="pull-right" role="button"><i class="fa fa-edit">
+                                </i></a>
+                            </td>
+                            <td th:text="${p.id}">1</td>
+                            <td th:text="${p.nome}">...</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="box-footer">
+                    <div th:replace="fragments/pages"></div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+</html>

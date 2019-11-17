@@ -1,0 +1,111 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+	<div class="content-wrapper">
+
+
+		<section class="content-header">
+			<h1>
+				Anamneses<small>Lista de Anamneses</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="/"> Home</a></li>
+				<li><a href="cadastro"> Anamneses</a></li>
+				<li class="active">Lista</li>
+			</ol>
+		</section>
+
+		<section class="content">
+
+			<div th:replace="fragments/alert"></div>
+
+			<div class="box box-info">
+
+				<div class="box-header">
+
+					<h3 class="box-title">Lista de Anamneses</h3>
+
+					<div class="pull-right">
+
+						<a class="btn btn-info" type="button" data-toggle="collapse"
+							data-target="#collapsePesquisa" aria-controls="collapsePesquisa">
+							<span><i class="fa fa-search"></i> Pesquisa</span>
+						</a> <a class="btn btn-primary" type="button"
+							th:href="@{/admin/anamnese/cadastro}"> <span><i
+								class="fa fa-plus"></i> Nova Anamnese</span>
+						</a>
+
+					</div>
+
+					</br> </br>
+
+					<div class="pull-left">
+
+						<div class="collapse" id="collapsePesquisa">
+
+							<div class="input-group input-group-sm">
+
+								<form method="GET"
+									th:action="@{/admin/anamnese/buscar/paciente}">
+									<select type="search" class="form-control select2"
+										style="width: 250px;" th:name="paciente"
+										placeholder="Pesquise pelo Paciente" required>
+										<option th:value=null disabled selected>Pesquise pelo Paciente</option>
+										<option th:each="p : ${paciente}" th:value="${p.id}"
+											th:text="${p.paciente}">Admin</option>
+									</select>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-default">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="box-body table-responsive no-padding">
+
+					<table id="lista" class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th width="15px"></th>
+								<th width="70px">Registro</th>
+								<th width="200px" > Medico </th>
+								<th> Paciente</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="a : ${anamnes}">
+								<td><a
+									th:href="@{/admin/anamnese/editar/{id} (id = ${a.id})}"
+									class="pull-right" role="button"><i class="fa fa-edit">
+									</i></a></td>
+								<td th:text="${a.id}"></td>
+								<td th:text="${#dates.format(a.data, 'dd/MM/yyyy')}"></td>
+								<td th:text="${a.medico.medico}"></td>
+								<td th:text="${a.paciente.nome}"></td>
+
+							</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+
+				<div class="box-footer">
+					<div th:replace="fragments/pages"></div>
+				</div>
+
+			</div>
+		</section>
+	</div>
+</section>

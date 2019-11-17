@@ -1,0 +1,143 @@
+<html layout:decorate="~{layout}">
+
+<section layout:fragment="corpo">
+
+	<div class="content-wrapper">
+
+		<section class="content-header">
+			<h1>
+				Paciente <small>Cadastre aqui os pacientes</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="/"> Home</a></li>
+				<li class="active">paciente</li>
+			</ol>
+		</section>
+
+		<section class="content">
+
+			<div th:replace="fragments/alert"></div>
+
+			<div class="box box-info">
+
+				<div class="box-header with-border">
+					<h3 class="box-title">Informe um paciente</h3>
+				</div>
+
+				<form th:action="${id == null} ? @{salvar} : @{../editar}"
+					th:object="${paciente}" method="POST">
+					<input id="id" type="hidden" th:field="*{id}">
+
+					<div class="box-body">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="nome">Nome do paciente</label> <input id="nome"
+									type="text" class="form-control" placeholder=""
+									onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+							</div>
+						</div>
+
+
+						<div class="box-body">
+
+							
+
+
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="dataNascimento">Data de nascimento</label> <input
+										id="datanNscimento" type="text" class="form-control"
+										placeholder="" th:field="*{dataNascimento}" autocomplete="off"
+										autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="cpf">CPF</label> <input id="cpf" type="text"
+										class="form-control" placeholder="" th:field="*{cpf}"
+										autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="estado">Estado</label> <input id="estado"
+										type="text" class="form-control" placeholder=""
+										th:field="*{cpf}" autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="cidade">Cidade</label> <input id="cidade"
+										type="text" class="form-control" placeholder=""
+										th:field="*{cidade}" autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="bairro">Bairro</label> <input id="bairro"
+										type="text" class="form-control" placeholder=""
+										th:field="*{bairro}" autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="">Endereco</label> <input id="cidade" type="text"
+										class="form-control" placeholder="" th:field="*{cidade}"
+										autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="cep">CEP</label> <input id="cep" type="text"
+										class="form-control" placeholder="" th:field="*{cep}"
+										autocomplete="off" autofocus=true>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="fone">Contato</label> <input id="fone" type="text"
+										class="form-control" placeholder="" th:field="*{fone}"
+										autocomplete="off" autofocus=true>
+								</div>
+							</div>
+						</div>
+
+						<div class="box-footer">
+
+							<a class="btn btn-default" href="javascript:history.back()"><i
+								class="fa fa-undo"></i> Cancelar</a>
+
+							<div class="pull-right">
+
+
+								<button th:if="${id != null}" th:id="${'/btn_excluir/' + id}"
+									type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#myModal">
+									<i class="fa fa-trash"></i> Excluir
+								</button>
+
+								<button type="submit" class="btn btn-primary">
+									<i class="fa fa-save"></i> Salvar
+								</button>
+
+							</div>
+
+						</div>
+				</form>
+			</div>
+		</section>
+	</div>
+
+	<div th:replace="fragments/modal :: modal"></div>
+
+</section>
+</html>
